@@ -1,0 +1,33 @@
+﻿@model WolframBeta.Models.WykresDane
+
+
+@using (Html.BeginForm())
+{
+<form class="myForm" action="">
+    <!--walidator zbudowany na funkcji PobierzDane z kontrolera -->
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationMessageFor(model => model.wzorFunkcji, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(model => model.A, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(model => model.B, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(model => model.Krok, "", new { @class = "text-danger" })
+
+    <br/>
+
+
+    @Html.EditorFor(model => model.wzorFunkcji, new { htmlAttributes = new { @class = "form-control", id = "txtWykres", placeholder = "Podaj wzór funkcji..." } })
+    @Html.EditorFor(model => model.A, new { htmlAttributes = new { @class = "form-control", id = "txtA", placeholder = "Podaj początek przedziału..." } })
+    @Html.EditorFor(model => model.B, new { htmlAttributes = new { @class = "form-control", id = "txtB", placeholder = "Podaj koniec przedziału..." } })
+    @Html.EditorFor(model => model.Krok, new { htmlAttributes = new { @class = "form-control", id = "txtKrok", placeholder = "Podaj podziałkę ..." } })
+
+
+
+    <br />
+    <button class="btn btn-secondary" id="btnGet" type="button">
+        <span class="glyphicon glyphicon-leaf"></span>
+        Pokaż Wykres
+    </button>
+</form>
+
+}

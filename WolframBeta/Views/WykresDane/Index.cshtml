@@ -1,0 +1,113 @@
+﻿@model WolframBeta.Models.WykresDane
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        function PobierzDane() {
+            var wzor = $("#txtWykres").val();
+            var a = $("#txtA").val();
+            var b = $("#txtB").val();
+            var krok = $("#txtKrok").val();
+            return { wzorFunkcji: wzor, A: a, B: b, Krok: krok };
+        }
+
+        function Clear() {
+            //alert("clear");
+            $("#chartdiv").text("");
+        }
+
+        $(function () {
+
+            var ret = null;
+
+            $("#btnGet").click(function () {
+
+                Clear();
+
+                var dane = PobierzDane();
+              //  if (dane != null) {                
+                var json = JSON.stringify(dane);
+
+                // alert(json);
+                $.ajax({
+                    async: false, //odrysuje od razu
+                    type: "POST",
+                    url: "/WykresDane/PobierzDane", //metoda z WykresDaneController
+                    dataType: "json",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (response) {
+                        $("#wynik").text("f(x)= " + response.wzorFunkcji);
+
+                        ret = response;
+                    },
+                    failure: function (response) {
+                        $("#wynik").text("Błąd podczas wprowadzanie danych do formularza");
+                        //alert(response.responseText);
+                    },
+                    error: function (response) {
+                        $("#wynik").text("Błąd podczas wprowadzanie danych do formularza");
+                       // alert(response.responseText);
+                    }
+
+                });
+
+                var tabx = [];
+                var taby = [];
+                tabx = ret.tabx;
+                taby = ret.taby;
+
+                var tab = [,];
+
+                for (var i = 0; i < tabx.length; i++) {
+                    tab[i] = [tabx[i], taby[i]];
+                }
+
+                var plot1 = $.jqplot('chartdiv', [tab],
+                    {
+                        //title: "WYKRES FUNKCJI",
+
+                        fillBetween:
+                        {
+                            color: "rgba(227,167,11,0.7)",
+                            baseSeries: 0,
+                            fill: true
+                        }
+
+                    });
+
+             //   }
+
+
+            });
+
+        });
+
+    </script>
+
+    <div id="wynik" class="wynik"> </div>
+    <div class="errorinfo">
+    </div>
+
+    <div id="chartdiv" class="chartdiv">  </div>
+
+
+</body>
+
+
+
+</html>

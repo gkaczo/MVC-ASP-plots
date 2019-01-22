@@ -1,0 +1,67 @@
+﻿@model WolframBeta.Models.WykresDane
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqPlot")
+
+
+</head>
+
+<body>
+
+    <div class="overlay table-bordered">
+        <img src="~/Content/mytemplate/images/bg-mobile-fallback.jpg" class="img-thumbnail" />
+    </div>
+
+    <div class="container">
+        <div class="Mymasthead ">
+
+            <div class="row ">
+                <div class="Mymasthead-bg"> </div>
+
+                <div class="col-lg-4">
+                    <div class="Mymasthead-content">
+                        <h1 class="mb-3">MVC ASP Plots</h1>
+
+                        <div class="input-group input-group-newsletter">
+                            <p class="mb-5"> Aplikacja do prezentacji wykresów funkcji</p>
+
+
+                            @Html.Partial("PobierzDanePartial");
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-8 ">
+                    <div class="Mycontent">
+
+                        @RenderBody();
+                    </div>
+                </div>
+
+            </div>  <!-- koniec row-->
+
+
+        </div>
+
+    </div> <!-- koniec conteiner-->
+
+
+</body>
+</html>
